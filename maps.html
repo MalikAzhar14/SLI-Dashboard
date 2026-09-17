@@ -165,11 +165,11 @@ body{display:flex;flex-direction:column}
 <div class='mfoot'>
   <span>MAPS &middot; laman peta &mdash; <b>tanpa auto-refresh</b>, posisi &amp; zoom tersimpan per area</span>
   <span>layer dimuat per area saat dipilih (lazy) &middot; pindah balik = instan</span>
-  <span class='kanan'>data run 17 Sep 2026 14:55</span>
+  <span class='kanan'>data run 17 Sep 2026 23:08</span>
 </div>
 <script>
 (function(){
-  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,365.19", "tgt": "39,336.00", "prog": "44.1%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "3,951.95", "tgt": "15,009.00", "prog": "26.3%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": false, "view": [-2.5, 118.0, 5], "net": "–", "tgt": "3,796.00", "prog": "–"}];
+  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,481.71", "tgt": "39,336.00", "prog": "44.4%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "3,951.95", "tgt": "15,009.00", "prog": "26.3%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": false, "view": [-2.5, 118.0, 5], "net": "–", "tgt": "3,796.00", "prog": "–"}];
   var peta = L.map('peta', {preferCanvas:true});
   peta.createPane('paneRoad'); peta.getPane('paneRoad').style.zIndex = 410;
   peta.createPane('paneCov');  peta.getPane('paneCov').style.zIndex  = 420;
