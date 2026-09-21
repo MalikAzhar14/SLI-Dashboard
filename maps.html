@@ -15,10 +15,10 @@
  .mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
  .top{display:flex;align-items:center;gap:14px;padding:14px 34px;border-bottom:2px solid var(--line);
    background:var(--band);flex-wrap:wrap}
- .top img,.top .tile{width:30px;height:30px;border-radius:8px;object-fit:contain;flex:none;
+ .top img,.top .tile{width:46px;height:46px;border-radius:10px;object-fit:contain;flex:none;
    filter:drop-shadow(0 0 10px #58a6ff33)}
  .top .tile{display:inline-block;background:conic-gradient(from 200deg,var(--lime),var(--acc))}
- .top h1{font-size:15px;margin:0;letter-spacing:4px;text-transform:uppercase;font-weight:800}
+ .top h1{font-size:15px;margin:0;letter-spacing:4px;text-transform:uppercase;font-weight:800;color:#fff}
  .top .lv{color:var(--lime);font-size:10.5px;font-weight:700;letter-spacing:2px}
  .top .lv:before{content:'\25CF';margin-right:6px;animation:mbp 1.5s infinite}
  @keyframes mbp{50%{opacity:.25}}
@@ -43,6 +43,7 @@
  .cap .lgd{display:inline-flex;align-items:center;gap:6px;letter-spacing:1px}
  .cap .lgd i{width:9px;height:9px;border-radius:3px;display:inline-block}
  .bgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 0}
+ .bgrid.b5{grid-template-columns:repeat(5,minmax(0,1fr))}
  .cell{border-left:1px solid var(--line);padding:2px 20px;min-width:0}
  .bgrid .cell:nth-child(4n+1){border-left:0;padding-left:0}
  .cell .l{color:var(--mut);font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
@@ -105,7 +106,7 @@
    font-family:var(--mono);font-size:12px;letter-spacing:.5px;white-space:nowrap;overflow-x:auto}
  .ticker b{color:var(--ink)}
  @media(max-width:900px){
-  .bgrid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bgrid,.bgrid.b5{grid-template-columns:repeat(2,minmax(0,1fr))}
   .bgrid .cell{border-left:1px solid var(--line)}
   .bgrid .cell:nth-child(2n+1){border-left:0;padding-left:0}
   .paces{grid-template-columns:1fr}.cell .v{font-size:25px}.prow .vv{font-size:30px}
@@ -163,9 +164,9 @@ body{display:flex;flex-direction:column}
 </div>
 <div class='mwrap'><div id='peta'></div></div>
 <div class='mfoot'>
-  <span>MAPS &middot; laman peta &mdash; <b>tanpa auto-refresh</b>, posisi &amp; zoom tersimpan per area</span>
-  <span>layer dimuat per area saat dipilih (lazy) &middot; pindah balik = instan</span>
-  <span class='kanan'>data run 21 Sep 2026 12:33</span>
+  <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
+  <span>layers load per selected area (lazy) &middot; switching back is instant</span>
+  <span class='kanan'>data run 21 Sep 2026 12:49</span>
 </div>
 <script>
 (function(){
@@ -187,7 +188,7 @@ body{display:flex;flex-direction:column}
     var d = L.DomUtil.create('div','peta-legend');
     d.innerHTML = "<div data-l='road'><span class='cb'></span><i style='background:#ff5252'></i>Plan</div>" +
                   "<div data-l='cov'><span class='cb'></span><i style='background:#00e5ff'></i>Actual</div>" +
-                  "<div data-l='adm'><span class='cb'></span><i class='dash'></i>Batas KabKot</div>";
+                  "<div data-l='adm'><span class='cb'></span><i class='dash'></i>Admin Boundary</div>";
     L.DomEvent.disableClickPropagation(d);
     d.addEventListener('click', function(e){
       var k = e.target.closest('[data-l]'); if(!k) return;
@@ -252,14 +253,14 @@ body{display:flex;flex-direction:column}
     var c = { gRoad:L.featureGroup(), gCov:L.featureGroup(),
               gAdm:L.featureGroup(), gLbl:L.layerGroup(), siap:0 };
     cache[a.kode] = c;
-    muat.textContent = 'memuat layer ' + a.nama + ' …';
+    muat.textContent = 'loading ' + a.nama + ' layers …';
     muat.classList.add('on');
     function cek(){ c.siap++; if (c.siap >= 2){ muat.classList.remove('on'); } }
     var bust = '?v=' + Math.floor(Date.now() / 600000);
     muatGeo(a.kode + '_roadmap.geojson', '',
       {style:{color:'#ff5252', weight:2, opacity:.75}, smoothFactor:2,
        pane:'paneRoad', renderer:rRoad}, c.gRoad,
-      function(ok){ if(!ok){ muat.textContent = 'roadmap ' + a.nama + ' belum tersedia'; } cek();
+      function(ok){ if(!ok){ muat.textContent = a.nama + ' roadmap not available yet'; } cek();
                     if (aktif === a.kode) terapkanTampil(); });
     muatGeo(a.kode + '_coverage.geojson', bust,
       {style:{color:'#00e5ff', weight:2, opacity:.9}, smoothFactor:1.4,
@@ -303,7 +304,7 @@ body{display:flex;flex-direction:column}
   AREA.forEach(function(a){
     var b = document.createElement('button');
     b.textContent = a.nama;
-    if (!a.ada){ b.disabled = true; b.title = 'belum ada data peta'; }
+    if (!a.ada){ b.disabled = true; b.title = 'no map data yet'; }
     else {
       b.addEventListener('click', function(){ pilih(a, b); });
       if (!awal || a.kode === pilihanTersimpan){ awal = a; awalBtn = b; }
@@ -311,6 +312,6 @@ body{display:flex;flex-direction:column}
     seg.appendChild(b);
   });
   if (awal){ pilih(awal, awalBtn); }
-  else { muat.textContent = 'belum ada area dengan data peta'; muat.classList.add('on'); }
+  else { muat.textContent = 'no area with map data yet'; muat.classList.add('on'); }
 })();
 </script></body></html>
