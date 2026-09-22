@@ -113,7 +113,6 @@
   .honor6{grid-template-columns:repeat(2,minmax(0,1fr))}
   .band{padding:18px 18px}.top{padding:12px 18px}.menu{padding:0 18px}.ticker{padding:10px 18px}}
 
-/* --- khusus laman maps: peta full-height, tanpa scroll body --- */
 html,body{height:100%;overflow:hidden}
 body{display:flex;flex-direction:column}
 .mctrl{display:flex;align-items:center;gap:18px;padding:12px 22px;background:var(--panel,#11151c);
@@ -166,11 +165,11 @@ body{display:flex;flex-direction:column}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 22 Sep 2026 20:07</span>
+  <span class='kanan'>data run 22 Sep 2026 21:36</span>
 </div>
 <script>
 (function(){
-  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,591.05", "tgt": "39,336.00", "prog": "44.7%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "4,974.80", "tgt": "15,009.00", "prog": "33.1%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "735.45", "tgt": "3,796.00", "prog": "19.4%"}];
+  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,804.56", "tgt": "39,336.00", "prog": "45.3%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "4,974.80", "tgt": "15,009.00", "prog": "33.1%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "735.45", "tgt": "3,796.00", "prog": "19.4%"}];
   var peta = L.map('peta', {preferCanvas:true});
   peta.createPane('paneRoad'); peta.getPane('paneRoad').style.zIndex = 410;
   peta.createPane('paneCov');  peta.getPane('paneCov').style.zIndex  = 420;
@@ -181,7 +180,6 @@ body{display:flex;flex-direction:column}
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution:'Imagery &copy; Esri &mdash; Maxar, Earthstar Geographics', maxZoom:19}).addTo(peta);
   peta.setView([-2.5, 118.0], 5);
 
-  /* legend interaktif */
   var tampil = {road:true, cov:true, adm:true};
   var legend = L.control({position:'bottomleft'});
   legend.onAdd = function(){
@@ -200,7 +198,6 @@ body{display:flex;flex-direction:column}
   };
   legend.addTo(peta);
 
-  /* loader geojson: sadar format PartsIndex {"parts":[...]} */
   function muatGeo(nama, bust, gaya, grup, selesai){
     fetch('geo/' + nama + bust)
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
@@ -298,7 +295,6 @@ body{display:flex;flex-direction:column}
     if (!cache[a.kode]){ muatArea(a); } else { terapkanTampil(); }
   }
 
-  /* tombol pemilih area dibangun dari config */
   var seg = document.getElementById('mseg'), awal = null, awalBtn = null, pilihanTersimpan = null;
   try { pilihanTersimpan = localStorage.getItem('maps_area'); } catch(e){}
   AREA.forEach(function(a){
