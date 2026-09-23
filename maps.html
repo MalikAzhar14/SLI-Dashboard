@@ -166,7 +166,7 @@ body{display:flex;flex-direction:column}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 23 Sep 2026 12:36</span>
+  <span class='kanan'>data run 23 Sep 2026 14:53</span>
 </div>
 <script>
 (function(){
@@ -175,19 +175,22 @@ body{display:flex;flex-direction:column}
   peta.createPane('paneRoad'); peta.getPane('paneRoad').style.zIndex = 410;
   peta.createPane('paneCov');  peta.getPane('paneCov').style.zIndex  = 420;
   peta.createPane('paneAdm');  peta.getPane('paneAdm').style.zIndex  = 430;
+  peta.createPane('paneUC');   peta.getPane('paneUC').style.zIndex   = 415;
   var rRoad = L.canvas({pane:'paneRoad'});
   var rCov  = L.canvas({pane:'paneCov'});
   var rAdm  = L.canvas({pane:'paneAdm'});
+  var rUC   = L.canvas({pane:'paneUC'});
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {attribution:'Imagery &copy; Esri &mdash; Maxar, Earthstar Geographics', maxZoom:19}).addTo(peta);
   peta.setView([-2.5, 118.0], 5);
 
   /* legend interaktif */
-  var tampil = {road:true, cov:true, adm:true};
+  var tampil = {road:true, cov:true, adm:true, uc:true};
   var legend = L.control({position:'bottomleft'});
   legend.onAdd = function(){
     var d = L.DomUtil.create('div','peta-legend');
     d.innerHTML = "<div data-l='road'><span class='cb'></span><i style='background:#ff5252'></i>Plan</div>" +
                   "<div data-l='cov'><span class='cb'></span><i style='background:#00e5ff'></i>Actual</div>" +
+                  "<div data-l='uc'><span class='cb'></span><i style='background:#f0883e'></i>Uncovered Cluster</div>" +
                   "<div data-l='adm'><span class='cb'></span><i class='dash'></i>Admin Boundary</div>";
     L.DomEvent.disableClickPropagation(d);
     d.addEventListener('click', function(e){
@@ -223,7 +226,7 @@ body{display:flex;flex-direction:column}
 
   function terapkanTampil(){
     if (!aktif || !cache[aktif]) return; var c = cache[aktif];
-    [['road',c.gRoad],['cov',c.gCov],['adm',c.gAdm]].forEach(function(p){
+    [['road',c.gRoad],['cov',c.gCov],['adm',c.gAdm],['uc',c.gUC]].forEach(function(p){
       if (tampil[p[0]]){ p[1].addTo(peta); } else { peta.removeLayer(p[1]); }
     });
     aturLabel();
@@ -250,7 +253,7 @@ body{display:flex;flex-direction:column}
   }
 
   function muatArea(a){
-    var c = { gRoad:L.featureGroup(), gCov:L.featureGroup(),
+    var c = { gRoad:L.featureGroup(), gCov:L.featureGroup(), gUC:L.featureGroup(),
               gAdm:L.featureGroup(), gLbl:L.layerGroup(), siap:0 };
     cache[a.kode] = c;
     muat.textContent = 'loading ' + a.nama + ' layers …';
@@ -262,6 +265,10 @@ body{display:flex;flex-direction:column}
        pane:'paneRoad', renderer:rRoad}, c.gRoad,
       function(ok){ if(!ok){ muat.textContent = a.nama + ' roadmap not available yet'; } cek();
                     if (aktif === a.kode) terapkanTampil(); });
+    muatGeo(a.kode + '_uncovered.geojson', bust,
+      {style:{color:'#f0883e', weight:2, opacity:.85}, smoothFactor:1.6,
+       pane:'paneUC', renderer:rUC}, c.gUC,
+      function(ok){ if (aktif === a.kode) terapkanTampil(); });
     muatGeo(a.kode + '_coverage.geojson', bust,
       {style:{color:'#00e5ff', weight:2, opacity:.9}, smoothFactor:1.4,
        pane:'paneCov', renderer:rCov}, c.gCov,
