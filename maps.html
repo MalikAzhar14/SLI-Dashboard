@@ -44,6 +44,7 @@
  .cap .lgd i{width:9px;height:9px;border-radius:3px;display:inline-block}
  .bgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 0}
  .bgrid.b5{grid-template-columns:repeat(5,minmax(0,1fr))}
+ .bgrid.b3{grid-template-columns:repeat(3,minmax(0,1fr))}
  .cell{border-left:1px solid var(--line);padding:2px 20px;min-width:0}
  .bgrid .cell:nth-child(4n+1){border-left:0;padding-left:0}
  .cell .l{color:var(--mut);font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
@@ -106,7 +107,7 @@
    font-family:var(--mono);font-size:12px;letter-spacing:.5px;white-space:nowrap;overflow-x:auto}
  .ticker b{color:var(--ink)}
  @media(max-width:900px){
-  .bgrid,.bgrid.b5{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bgrid,.bgrid.b5,.bgrid.b3{grid-template-columns:repeat(2,minmax(0,1fr))}
   .bgrid .cell{border-left:1px solid var(--line)}
   .bgrid .cell:nth-child(2n+1){border-left:0;padding-left:0}
   .paces{grid-template-columns:1fr}.cell .v{font-size:25px}.prow .vv{font-size:30px}
@@ -165,11 +166,11 @@ body{display:flex;flex-direction:column}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 23 Sep 2026 10:24</span>
+  <span class='kanan'>data run 23 Sep 2026 12:35</span>
 </div>
 <script>
 (function(){
-  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,591.05", "tgt": "39,336.00", "prog": "44.7%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "5,575.72", "tgt": "15,009.00", "prog": "37.1%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "735.45", "tgt": "3,796.00", "prog": "19.4%"}];
+  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,591.05", "tgt": "39,336.00", "prog": "44.7%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "5,836.36", "tgt": "15,009.00", "prog": "38.9%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "886.42", "tgt": "3,796.00", "prog": "23.4%"}];
   var peta = L.map('peta', {preferCanvas:true});
   peta.createPane('paneRoad'); peta.getPane('paneRoad').style.zIndex = 410;
   peta.createPane('paneCov');  peta.getPane('paneCov').style.zIndex  = 420;
