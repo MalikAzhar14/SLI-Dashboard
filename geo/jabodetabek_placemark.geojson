@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "jabodetabek_placemark",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "d": "Traffic Accident", "i": "Motorcycle fall" }, "geometry": { "type": "Point", "coordinates": [ 106.449519484386002, -6.599619536158951 ] } },
+{ "type": "Feature", "properties": { "d": "Traffic Accident", "i": "Motorcycle fall" }, "geometry": { "type": "Point", "coordinates": [ 106.640452389797858, -6.70955521262987 ] } },
+{ "type": "Feature", "properties": { "d": "High-Crime Area", "i": "Kampung Bahari" }, "geometry": { "type": "Point", "coordinates": [ 106.874826087417148, -6.116529300349367 ] } },
+{ "type": "Feature", "properties": { "d": "Traffic Accident", "i": "Motorcycle fall" }, "geometry": { "type": "Point", "coordinates": [ 106.685809786774129, -6.681255556537502 ] } }
+]
+}
