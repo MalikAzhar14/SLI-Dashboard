@@ -180,7 +180,7 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
   <span class='mmuat' id='mmuat'></span>
   <div class='mstat'>
     <div><div class='l'>Net km</div><div class='v' style='color:#00e5ff' id='s-net'>&ndash;</div></div>
-    <div><div class='l'>Uncovered Cluster km</div><div class='v' style='color:#ffd600' id='s-unc'>&ndash;</div></div>
+    <div><div class='l'>Uncovered km</div><div class='v' style='color:#ffd600' id='s-unc'>&ndash;</div></div>
     <div><div class='l'>Target Net km</div><div class='v' style='color:#ff5252' id='s-tgt'>&ndash;</div></div>
   </div>
 </div>
@@ -188,11 +188,11 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 23 Sep 2026 19:56</span>
+  <span class='kanan'>data run 23 Sep 2026 21:28</span>
 </div>
 <script>
 (function(){
-  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,591.05", "unc": "6,213.67", "tgt": "39,336.00", "prog": "44.7%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "5,836.36", "unc": "1,632.08", "tgt": "15,009.00", "prog": "38.9%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "886.42", "unc": "–", "tgt": "3,796.00", "prog": "23.4%"}];
+  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,591.05", "unc": "6,213.67", "tgt": "39,336.00", "prog": "44.7%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "5,836.36", "unc": "1,632.08", "tgt": "15,009.00", "prog": "38.9%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "985.13", "unc": "–", "tgt": "3,796.00", "prog": "26.0%"}];
   var peta = L.map('peta', {preferCanvas:true});
   peta.createPane('paneRoad'); peta.getPane('paneRoad').style.zIndex = 410;
   peta.createPane('paneCov');  peta.getPane('paneCov').style.zIndex  = 420;
@@ -217,11 +217,6 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
                   "<div class='pm-sub' id='pm-sub'>" +
                     "<span class='r'><b class='pm-mini' style='border-color:#ff5252'>🏍<i class='pm-xm'>💥</i></b>Traffic Accident</span>" +
                     "<span class='r'><b class='pm-mini' style='border-color:#e040fb'>🚨</b>High-Crime Area</span>" +
-                    "<span class='r'><b class='pm-mini' style='border-color:#40c4ff'>🌊</b>Flood</span>" +
-                    "<span class='r'><b class='pm-mini' style='border-color:#ff9100'>🚧</b>Road Damage</span>" +
-                    "<span class='r'><b class='pm-mini' style='border-color:#ff1744'>⛔</b>No Entry / Restricted</span>" +
-                    "<span class='r'><b class='pm-mini' style='border-color:#8bc34a'>🐍</b>Animal Hazard</span>" +
-                    "<span class='r'><b class='pm-mini' style='border-color:#90a4ae'>📍</b>Lainnya</span>" +
                   "</div>" +
                   "<div data-l='adm'><span class='cb'></span><i class='dash'></i>Admin Boundary</div>";
     L.DomEvent.disableClickPropagation(d);
