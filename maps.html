@@ -159,6 +159,8 @@ body{display:flex;flex-direction:column}
   <span class='mmuat' id='mmuat'></span>
   <div class='mstat'>
     <div><div class='l'>Net km</div><div class='v' style='color:#00e5ff' id='s-net'>&ndash;</div></div>
+    <div><div class='l'>Uncovered Cluster km</div><div class='v' style='color:#f0883e' id='s-unc'>&ndash;</div></div>
+    <div><div class='l'>Remaining</div><div class='v' id='s-rem'>&ndash;</div></div>
     <div><div class='l'>Target Net km</div><div class='v' style='color:#ff5252' id='s-tgt'>&ndash;</div></div>
   </div>
 </div>
@@ -166,11 +168,11 @@ body{display:flex;flex-direction:column}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 23 Sep 2026 14:54</span>
+  <span class='kanan'>data run 23 Sep 2026 15:17</span>
 </div>
 <script>
 (function(){
-  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,591.05", "tgt": "39,336.00", "prog": "44.7%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "5,836.36", "tgt": "15,009.00", "prog": "38.9%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "886.42", "tgt": "3,796.00", "prog": "23.4%"}];
+  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "17,591.05", "unc": "6,213.67", "rem": "15,531.28", "tgt": "39,336.00", "prog": "44.7%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "5,836.36", "unc": "1,632.08", "rem": "7,540.56", "tgt": "15,009.00", "prog": "38.9%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "886.42", "unc": "–", "rem": "2,909.58", "tgt": "3,796.00", "prog": "23.4%"}];
   var peta = L.map('peta', {preferCanvas:true});
   peta.createPane('paneRoad'); peta.getPane('paneRoad').style.zIndex = 410;
   peta.createPane('paneCov');  peta.getPane('paneCov').style.zIndex  = 420;
@@ -295,9 +297,11 @@ body{display:flex;flex-direction:column}
     document.querySelectorAll('#mseg button').forEach(function(b){ b.classList.remove('on'); });
     tombol.classList.add('on');
     document.getElementById('s-net').textContent  = a.net;
+    document.getElementById('s-unc').textContent  = a.unc;
+    document.getElementById('s-rem').textContent  = a.rem;
     document.getElementById('s-tgt').textContent  = a.tgt;
     if (aktif && cache[aktif]){ var l = cache[aktif];
-      [l.gRoad, l.gCov, l.gAdm, l.gLbl].forEach(function(g){ peta.removeLayer(g); }); }
+      [l.gRoad, l.gCov, l.gUC, l.gAdm, l.gLbl].forEach(function(g){ peta.removeLayer(g); }); }
     aktif = a.kode;
     try { localStorage.setItem('maps_area', a.kode); } catch(e){}
     pulihkanView(a);
