@@ -142,7 +142,8 @@ body{display:flex;flex-direction:column}
 .peta-legend div:not(.mati) .cb::after{content:'';position:absolute;left:4px;top:1px;
  width:3px;height:7px;border:solid #3fb950;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .peta-legend i{display:inline-block;width:22px;height:3px;border-radius:2px;flex:0 0 auto}
-.peta-legend i.dash{background:none;height:0;border-top:3px dashed #ffd60a}
+.peta-legend i.dash{background:repeating-linear-gradient(90deg,#0b0d10 0 6px,#ffffff 6px 12px);
+height:4px;border:0;border-radius:2px}
 .adm-label{color:#ffd60a;font-size:11px;font-weight:700;letter-spacing:.4px;
  white-space:nowrap;text-shadow:0 0 3px #000,0 0 6px #000,0 1px 2px #000;
  transform:translate(-50%,-50%)}
@@ -158,8 +159,8 @@ body{display:flex;flex-direction:column}
   <div class='mseg' id='mseg'></div>
   <span class='mmuat' id='mmuat'></span>
   <div class='mstat'>
-    <div><div class='l'>Net km</div><div class='v' style='color:#00e676' id='s-net'>&ndash;</div></div>
-    <div><div class='l'>Uncovered Cluster km</div><div class='v' style='color:#00e5ff' id='s-unc'>&ndash;</div></div>
+    <div><div class='l'>Net km</div><div class='v' style='color:#00e5ff' id='s-net'>&ndash;</div></div>
+    <div><div class='l'>Uncovered Cluster km</div><div class='v' style='color:#ffd600' id='s-unc'>&ndash;</div></div>
     <div><div class='l'>Target Net km</div><div class='v' style='color:#ff5252' id='s-tgt'>&ndash;</div></div>
   </div>
 </div>
@@ -167,7 +168,7 @@ body{display:flex;flex-direction:column}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 23 Sep 2026 15:41</span>
+  <span class='kanan'>data run 23 Sep 2026 15:55</span>
 </div>
 <script>
 (function(){
@@ -190,8 +191,8 @@ body{display:flex;flex-direction:column}
   legend.onAdd = function(){
     var d = L.DomUtil.create('div','peta-legend');
     d.innerHTML = "<div data-l='road'><span class='cb'></span><i style='background:#ff5252'></i>Plan</div>" +
-                  "<div data-l='cov'><span class='cb'></span><i style='background:#00e676'></i>Actual</div>" +
-                  "<div data-l='uc'><span class='cb'></span><i style='background:#00e5ff'></i>Uncovered Cluster</div>" +
+                  "<div data-l='cov'><span class='cb'></span><i style='background:#00e5ff'></i>Actual</div>" +
+                  "<div data-l='uc'><span class='cb'></span><i style='background:#ffd600'></i>Uncovered Cluster</div>" +
                   "<div data-l='adm'><span class='cb'></span><i class='dash'></i>Admin Boundary</div>";
     L.DomEvent.disableClickPropagation(d);
     d.addEventListener('click', function(e){
@@ -267,18 +268,21 @@ body{display:flex;flex-direction:column}
       function(ok){ if(!ok){ muat.textContent = a.nama + ' roadmap not available yet'; } cek();
                     if (aktif === a.kode) terapkanTampil(); });
     muatGeo(a.kode + '_uncovered.geojson', bust,
-      {style:{color:'#00e5ff', weight:2, opacity:.85}, smoothFactor:1.6,
+      {style:{color:'#ffd600', weight:2, opacity:.85}, smoothFactor:1.6,
        pane:'paneUC', renderer:rUC}, c.gUC,
       function(ok){ if (aktif === a.kode) terapkanTampil(); });
     muatGeo(a.kode + '_coverage.geojson', bust,
-      {style:{color:'#00e676', weight:2, opacity:.9}, smoothFactor:1.4,
+      {style:{color:'#00e5ff', weight:2, opacity:.9}, smoothFactor:1.4,
        pane:'paneCov', renderer:rCov}, c.gCov,
       function(ok){ cek(); if (aktif === a.kode) terapkanTampil(); });
     fetch('geo/' + a.kode + '_admin.geojson')
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
       .then(function(g){
          L.geoJSON(g, {filter:function(f){ return f.properties && f.properties.t === 'b'; },
-           style:{color:'#ffd60a', weight:2.5, opacity:.9, dashArray:'8 6', fill:false},
+           style:{color:'#0b0d10', weight:3, opacity:.95, fill:false},
+           pane:'paneAdm', renderer:rAdm}).addTo(c.gAdm);
+         L.geoJSON(g, {filter:function(f){ return f.properties && f.properties.t === 'b'; },
+           style:{color:'#ffffff', weight:3, opacity:.95, dashArray:'9 9', fill:false},
            pane:'paneAdm', renderer:rAdm}).addTo(c.gAdm);
          (g.features || []).forEach(function(f){
             if (!f.properties || f.properties.t !== 'l') return;
