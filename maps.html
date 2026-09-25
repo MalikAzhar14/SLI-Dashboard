@@ -45,6 +45,7 @@
  .bgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 0}
  .bgrid.b5{grid-template-columns:repeat(5,minmax(0,1fr))}
  .bgrid.b3{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .bgrid.b6{grid-template-columns:repeat(6,minmax(0,1fr))}
  .cell{border-left:1px solid var(--line);padding:2px 20px;min-width:0}
  .bgrid .cell:nth-child(4n+1){border-left:0;padding-left:0}
  .cell .l{color:var(--mut);font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
@@ -107,7 +108,7 @@
    font-family:var(--mono);font-size:12px;letter-spacing:.5px;white-space:nowrap;overflow-x:auto}
  .ticker b{color:var(--ink)}
  @media(max-width:900px){
-  .bgrid,.bgrid.b5,.bgrid.b3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .bgrid,.bgrid.b5,.bgrid.b3,.bgrid.b6{grid-template-columns:repeat(2,minmax(0,1fr))}
   .bgrid .cell{border-left:1px solid var(--line)}
   .bgrid .cell:nth-child(2n+1){border-left:0;padding-left:0}
   .paces{grid-template-columns:1fr}.cell .v{font-size:25px}.prow .vv{font-size:30px}
@@ -188,7 +189,7 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 25 Sep 2026 09:51</span>
+  <span class='kanan'>data run 25 Sep 2026 22:10</span>
 </div>
 <script>
 (function(){
