@@ -17,7 +17,8 @@
    background:var(--band);flex-wrap:wrap}
  .top img,.top .tile{width:46px;height:46px;border-radius:10px;object-fit:contain;flex:none;
    filter:drop-shadow(0 0 10px #58a6ff33)}
- .top .logo-r{margin-left:auto;display:flex;align-items:center}
+ .top .logo-r{margin-left:auto;display:flex;align-items:center;align-self:center}
+ .top .logo-r img{width:58px;height:58px}
  .top .tile{display:inline-block;background:conic-gradient(from 200deg,var(--lime),var(--acc))}
  .top h1{font-size:15px;margin:0;letter-spacing:4px;text-transform:uppercase;font-weight:800;color:#fff}
  .top .lv{color:var(--lime);font-size:10.5px;font-weight:700;letter-spacing:2px}
@@ -134,9 +135,28 @@ body{display:flex;flex-direction:column}
 .mmuat.on{display:block}
 .mwrap{flex:1;position:relative;min-height:320px}
 #peta{position:absolute;inset:0;background:#0b0e13}
-.peta-legend{background:rgba(13,17,23,.9);border:1px solid #30363d;border-radius:8px;
- padding:9px 12px;color:#c9d1d9;font-size:12px;user-select:none}
+.peta-legend{background:linear-gradient(160deg,rgba(22,27,34,.97),rgba(13,17,23,.94));
+ border:1px solid #3d444d;border-radius:12px;box-shadow:0 8px 28px #000a;
+ padding:10px 13px 11px;color:#c9d1d9;font-size:12px;user-select:none;min-width:172px}
+.peta-legend .lg-h{display:flex;align-items:center;justify-content:space-between;gap:12px;
+ font-size:9.5px;letter-spacing:.2em;color:#8b949e;border-bottom:1px solid #30363d;
+ padding:0 0 7px;margin-bottom:5px;cursor:default}
+.peta-legend .lg-h button{background:#21262d;border:1px solid #3d444d;color:#c9d1d9;
+ font:inherit;font-size:9.5px;letter-spacing:.08em;border-radius:6px;padding:2px 8px;
+ cursor:pointer;margin-left:5px}
+.peta-legend .lg-h button:hover{background:#30363d;border-color:#58a6ff}
 .peta-legend div{cursor:pointer;display:flex;align-items:center;gap:9px;padding:4px 0}
+.peta-legend [data-l]{cursor:grab;border-radius:7px;padding:4px 6px;margin:1px -6px}
+.peta-legend [data-l]:hover{background:#ffffff0d}
+.peta-legend [data-l].seret{opacity:.35;background:#58a6ff22}
+.peta-legend [data-l]:active{cursor:grabbing}
+.leaflet-control-layers{background:linear-gradient(160deg,rgba(22,27,34,.97),rgba(13,17,23,.94));
+ border:1px solid #3d444d;border-radius:12px;color:#c9d1d9;box-shadow:0 8px 28px #000a}
+.leaflet-control-layers-expanded{padding:10px 14px;font:12px 'JetBrains Mono','Consolas',monospace;color:#c9d1d9}
+.leaflet-control-layers-toggle{width:40px;height:40px;border-radius:12px;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 25'%3E%3Cpath d='M12 2 22 8 12 14 2 8Z' fill='%2300e5ff'/%3E%3Cpath d='M2 13 12 19 22 13' fill='none' stroke='%23FFD600' stroke-width='2.6' stroke-linejoin='round'/%3E%3Cpath d='M2 18 12 24 22 18' fill='none' stroke='%23ff5252' stroke-width='2.6' stroke-linejoin='round'/%3E%3C/svg%3E");background-size:24px 25px}
+.leaflet-control-layers-separator{border-color:#30363d}
+.leaflet-control-layers label{color:#c9d1d9}
 .peta-legend div.mati{opacity:.45}
 .peta-legend .cb{width:13px;height:13px;border:1px solid #4a5361;border-radius:3px;
  position:relative;flex:0 0 auto;background:#0d1117}
@@ -190,21 +210,25 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 26 Sep 2026 22:47</span>
+  <span class='kanan'>data run 26 Sep 2026 23:20</span>
 </div>
 <script>
 (function(){
   var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "18,014.34", "unc": "16,658.47", "tgt": "39,491.98", "prog": "45.6%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "5,836.36", "unc": "5,826.57", "tgt": "14,849.69", "prog": "39.3%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "985.13", "unc": "1,114.34", "tgt": "3,862.83", "prog": "25.5%"}];
   var peta = L.map('peta', {preferCanvas:true});
-  peta.createPane('paneRoad'); peta.getPane('paneRoad').style.zIndex = 410;
-  peta.createPane('paneCov');  peta.getPane('paneCov').style.zIndex  = 420;
-  peta.createPane('paneAdm');  peta.getPane('paneAdm').style.zIndex  = 430;
-  peta.createPane('paneUC');   peta.getPane('paneUC').style.zIndex   = 415;
-  var rRoad = L.canvas({pane:'paneRoad'});
-  var rCov  = L.canvas({pane:'paneCov'});
-  var rAdm  = L.canvas({pane:'paneAdm'});
-  var rUC   = L.canvas({pane:'paneUC'});
-  var basemaps = [["Satellite", "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", "Imagery &copy; Esri &mdash; Maxar, Earthstar Geographics"], ["Dark", "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", "&copy; OpenStreetMap &copy; CARTO"], ["Streets", "https://tile.openstreetmap.org/{z}/{x}/{y}.png", "&copy; OpenStreetMap contributors"]], baseLayers = {}, baseDefault = null;
+  var PANE = {all:'paneAll', fc5:'paneFC5', fc4:'paneFC4', cov:'paneCov',
+              uc:'paneUC', adm:'paneAdm', pm:'panePM'};
+  Object.keys(PANE).forEach(function(k){ peta.createPane(PANE[k]); });
+  var rAll = L.canvas({pane:'paneAll'}),  rFC5 = L.canvas({pane:'paneFC5'}),
+      rFC4 = L.canvas({pane:'paneFC4'}), rCov = L.canvas({pane:'paneCov'}),
+      rAdm = L.canvas({pane:'paneAdm'}), rUC  = L.canvas({pane:'paneUC'});
+  function susunPane(d){
+    var urut = [].slice.call(d.querySelectorAll('[data-l]')).map(function(x){ return x.dataset.l; });
+    urut.forEach(function(k, i){
+      peta.getPane(PANE[k]).style.zIndex = 450 - i * 4; });   // baris teratas = layer teratas
+    try { sessionStorage.setItem('maps_lgorder', JSON.stringify(urut)); } catch(e){}
+  }
+  var basemaps = [["Satellite", "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}", "Imagery &copy; Esri &mdash; Maxar, Earthstar Geographics"], ["Streets", "https://tile.openstreetmap.org/{z}/{x}/{y}.png", "&copy; OpenStreetMap contributors"]], baseLayers = {}, baseDefault = null;
   basemaps.forEach(function(b, i){
     baseLayers[b[0]] = L.tileLayer(b[1], {attribution:b[2], maxZoom:19});
     if (i === 0) baseDefault = b[0];
@@ -222,24 +246,68 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
   var legend = L.control({position:'bottomleft'});
   legend.onAdd = function(){
     var d = L.DomUtil.create('div','peta-legend');
-    d.innerHTML = "<div data-l='all'><span class='cb'></span><i style='background:#ff5252'></i>Plan All</div>" +
-                  "<div data-l='fc4'><span class='cb'></span><i style='background:#FAFAFA'></i>Plan FC4</div>" +
-                  "<div data-l='fc5'><span class='cb'></span><i style='background:#B388FF'></i>Plan FC5</div>" +
-                  "<div data-l='cov'><span class='cb'></span><i style='background:#00e5ff'></i>Actual</div>" +
-                  "<div data-l='uc'><span class='cb'></span><i style='background:#ffd600'></i>Uncovered Cluster</div>" +
-                  "<div data-l='pm'><span class='cb'></span><i class='pmleg'>📍</i>Placemark</div>" +
+    d.innerHTML = "<div class='lg-h'>LAYERS<span><button id='lg-all'>all</button><button id='lg-none'>none</button></span></div>" +
+                  "<div data-l='all' draggable='true'><span class='cb'></span><i style='background:#ff5252'></i>Plan All</div>" +
+                  "<div data-l='fc4' draggable='true'><span class='cb'></span><i style='background:#39FF14'></i>Plan FC4</div>" +
+                  "<div data-l='fc5' draggable='true'><span class='cb'></span><i style='background:#B388FF'></i>Plan FC5</div>" +
+                  "<div data-l='cov' draggable='true'><span class='cb'></span><i style='background:#00e5ff'></i>Actual</div>" +
+                  "<div data-l='uc' draggable='true'><span class='cb'></span><i style='background:#ffd600'></i>Uncovered Cluster</div>" +
+                  "<div data-l='pm' draggable='true'><span class='cb'></span><i class='pmleg'>📍</i>Placemark</div>" +
                   "<div class='pm-sub' id='pm-sub'>" +
                     "<span class='r'><b class='pm-mini' style='border-color:#ff5252'>🏍<i class='pm-xm'>💥</i></b>Traffic Accident</span>" +
                     "<span class='r'><b class='pm-mini' style='border-color:#e040fb'>🚨</b>High-Crime Area</span>" +
                   "</div>" +
-                  "<div data-l='adm'><span class='cb'></span><i class='dash'></i>Admin Boundary</div>";
+                  "<div data-l='adm' draggable='true'><span class='cb'></span><i class='dash'></i>Admin Boundary</div>";
     L.DomEvent.disableClickPropagation(d);
+    try {   // pulihkan urutan layer sesi ini
+      var uT = JSON.parse(sessionStorage.getItem('maps_lgorder') || 'null');
+      if (uT && uT.length){
+        var sub = d.querySelector('#pm-sub');
+        uT.slice().reverse().forEach(function(k){
+          var b = d.querySelector("[data-l='" + k + "']");
+          if (b) d.insertBefore(b, d.children[1] || null);
+        });
+        var pmB = d.querySelector("[data-l='pm']");
+        if (sub && pmB) pmB.after(sub);
+      }
+    } catch(e){}
+    function setSemua(nyala){
+      Object.keys(tampil).forEach(function(k){ tampil[k] = nyala; });
+      [].forEach.call(d.querySelectorAll('[data-l]'), function(b){
+        b.classList.toggle('mati', !nyala); });
+      terapkanTampil();
+    }
+    d.querySelector('#lg-all').addEventListener('click', function(){ setSemua(true); });
+    d.querySelector('#lg-none').addEventListener('click', function(){ setSemua(false); });
     d.addEventListener('click', function(e){
+      if (e.target.closest('.lg-h')) return;
       var k = e.target.closest('[data-l]'); if(!k) return;
       tampil[k.dataset.l] = !tampil[k.dataset.l];
       k.classList.toggle('mati', !tampil[k.dataset.l]);
       terapkanTampil();
     });
+    var diseret = null;
+    d.addEventListener('dragstart', function(e){
+      diseret = e.target.closest('[data-l]');
+      if (diseret) diseret.classList.add('seret');
+    });
+    d.addEventListener('dragend', function(){
+      if (diseret) diseret.classList.remove('seret'); diseret = null; });
+    d.addEventListener('dragover', function(e){
+      if (!diseret) return; e.preventDefault();
+      var atas = e.target.closest('[data-l]');
+      if (!atas || atas === diseret) return;
+      var r = atas.getBoundingClientRect();
+      if (e.clientY < r.top + r.height / 2) d.insertBefore(diseret, atas);
+      else d.insertBefore(diseret, atas.nextSibling);
+    });
+    d.addEventListener('drop', function(e){
+      e.preventDefault();
+      var sub = d.querySelector('#pm-sub'), pmB = d.querySelector("[data-l='pm']");
+      if (sub && pmB) pmB.after(sub);   // sub-daftar placemark selalu menempel barisnya
+      susunPane(d);
+    });
+    susunPane(d);
     return d;
   };
   legend.addTo(peta);
@@ -324,15 +392,16 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
     muatGeo(a.kode + '_roadmap.geojson', '', null,
       function(chunk){
         L.geoJSON(chunk, {style:{color:'#ff5252', weight:2, opacity:.75},
-          smoothFactor:2, pane:'paneRoad', renderer:rRoad}).addTo(c.gAll);
+          smoothFactor:2, pane:'paneAll', renderer:rAll}).addTo(c.gAll);
         L.geoJSON(chunk, {style:function(f){
-            var fc = (f && f.properties && f.properties.fc) || 'FC5';
-            return fc === 'FC4' ? {color:'#FAFAFA', weight:3.2, opacity:.95}
-                                : {color:'#B388FF', weight:2, opacity:.85}; },
-          smoothFactor:2, pane:'paneRoad', renderer:rRoad}
+            var fc = ((f && f.properties && f.properties.fc) || 'FC5') === 'FC4';
+            return fc ? {color:'#39FF14', weight:3.2, opacity:.95, pane:'paneFC4'}
+                      : {color:'#B388FF', weight:2, opacity:.85, pane:'paneFC5'}; },
+          smoothFactor:2, renderer:rFC5}
         ).eachLayer(function(l){
           var fc = ((l.feature || {}).properties || {}).fc;
-          (fc === 'FC4' ? c.gFC4 : c.gFC5).addLayer(l);
+          if (fc === 'FC4'){ l.options.renderer = rFC4; c.gFC4.addLayer(l); }
+          else { c.gFC5.addLayer(l); }
         });
       },
       function(ok){ if(!ok){ muat.textContent = a.nama + ' roadmap not available yet'; } cek();
@@ -340,7 +409,7 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
     muatGeo(a.kode + '_placemark.geojson', bust,
       {pointToLayer:function(f, ll){
          var d = f.properties ? f.properties.d : '';
-         return L.marker(ll, {icon: ikonPM(d)});
+         return L.marker(ll, {icon: ikonPM(d), pane:'panePM'});
        },
        onEachFeature:function(f, ly){
          var p = f.properties || {}, k = _pmKat(p.d);
