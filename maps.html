@@ -210,11 +210,11 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 26 Sep 2026 23:21</span>
+  <span class='kanan'>data run 26 Sep 2026 23:40</span>
 </div>
 <script>
 (function(){
-  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "18,014.34", "unc": "16,658.47", "tgt": "39,491.98", "prog": "45.6%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "5,836.36", "unc": "5,826.57", "tgt": "14,849.69", "prog": "39.3%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "985.13", "unc": "1,114.34", "tgt": "3,862.83", "prog": "25.5%"}];
+  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "18,014.34", "unc": "16,658.47", "tgt": "39,491.98", "prog": "45.6%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "6,236.07", "unc": "7,037.71", "tgt": "14,849.69", "prog": "42.0%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "985.13", "unc": "1,114.34", "tgt": "3,862.83", "prog": "25.5%"}];
   var peta = L.map('peta', {preferCanvas:true});
   var PANE = {all:'paneAll', fc5:'paneFC5', fc4:'paneFC4', cov:'paneCov',
               uc:'paneUC', adm:'paneAdm', pm:'panePM'};
@@ -391,12 +391,12 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
     var bust = '?v=' + Math.floor(Date.now() / 600000);
     muatGeo(a.kode + '_roadmap.geojson', '', null,
       function(chunk){
-        L.geoJSON(chunk, {style:{color:'#ff5252', weight:2, opacity:.75},
+        L.geoJSON(chunk, {style:{color:'#ff5252', weight:2, opacity:1},
           smoothFactor:2, pane:'paneAll', renderer:rAll}).addTo(c.gAll);
         L.geoJSON(chunk, {style:function(f){
             var fc = ((f && f.properties && f.properties.fc) || 'FC5') === 'FC4';
-            return fc ? {color:'#39FF14', weight:3.2, opacity:.95, pane:'paneFC4'}
-                      : {color:'#B388FF', weight:2, opacity:.85, pane:'paneFC5'}; },
+            return fc ? {color:'#39FF14', weight:3.2, opacity:1, pane:'paneFC4'}
+                      : {color:'#B388FF', weight:2, opacity:1, pane:'paneFC5'}; },
           smoothFactor:2, renderer:rFC5}
         ).eachLayer(function(l){
           var fc = ((l.feature || {}).properties || {}).fc;
@@ -423,21 +423,21 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
        }}, c.gPM,
       function(ok){ if (aktif === a.kode) terapkanTampil(); });
     muatGeo(a.kode + '_uncovered.geojson', bust,
-      {style:{color:'#ffd600', weight:2, opacity:.85}, smoothFactor:1.6,
+      {style:{color:'#ffd600', weight:2, opacity:1}, smoothFactor:1.6,
        pane:'paneUC', renderer:rUC}, c.gUC,
       function(ok){ if (aktif === a.kode) terapkanTampil(); });
     muatGeo(a.kode + '_coverage.geojson', bust,
-      {style:{color:'#00e5ff', weight:2, opacity:.9}, smoothFactor:1.4,
+      {style:{color:'#00e5ff', weight:2, opacity:1}, smoothFactor:1.4,
        pane:'paneCov', renderer:rCov}, c.gCov,
       function(ok){ cek(); if (aktif === a.kode) terapkanTampil(); });
     fetch('geo/' + a.kode + '_admin.geojson')
       .then(function(r){ if(!r.ok) throw 0; return r.json(); })
       .then(function(g){
          L.geoJSON(g, {filter:function(f){ return f.properties && f.properties.t === 'b'; },
-           style:{color:'#0b0d10', weight:3, opacity:.95, fill:false},
+           style:{color:'#0b0d10', weight:3, opacity:1, fill:false},
            pane:'paneAdm', renderer:rAdm}).addTo(c.gAdm);
          L.geoJSON(g, {filter:function(f){ return f.properties && f.properties.t === 'b'; },
-           style:{color:'#ffffff', weight:3, opacity:.95, dashArray:'9 9', fill:false},
+           style:{color:'#ffffff', weight:3, opacity:1, dashArray:'9 9', fill:false},
            pane:'paneAdm', renderer:rAdm}).addTo(c.gAdm);
          (g.features || []).forEach(function(f){
             if (!f.properties || f.properties.t !== 'l') return;
