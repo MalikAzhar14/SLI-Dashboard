@@ -48,17 +48,25 @@
  .bgrid.b5{grid-template-columns:repeat(5,minmax(0,1fr))}
  .bgrid.b3{grid-template-columns:repeat(3,minmax(0,1fr))}
  .bgrid.b6{grid-template-columns:repeat(6,minmax(0,1fr))}
- .fcbar{display:inline-flex;height:6px;border-radius:3px;overflow:hidden;width:130px;background:#21262d;
-   vertical-align:middle;margin:0 10px 1px 16px}
+ .fcgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px}
+ .fccard{background:#10151b;border:1px solid #262c34;border-radius:12px;padding:13px 15px 8px}
+ .fchead{display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding-bottom:11px;margin-bottom:3px;
+   border-bottom:1px solid #232a32}
+ .fcnm{font-weight:800;letter-spacing:.09em;color:#fff;font-size:12.5px}
+ .fcbar{display:inline-flex;height:6px;border-radius:3px;overflow:hidden;width:104px;background:#21262d}
  .fcbar i{display:block;height:100%}
  .fcsub{font-size:9.5px;color:#8b949e;letter-spacing:.05em}
- .dep tr.fcgrp td{background:#161b22;border-top:2px solid #30363d;border-bottom:1px solid #21262d;
-   padding:10px 12px}
- .dep tr.fcgrp:first-child td{border-top:none}
- .fcnm{font-weight:800;letter-spacing:.08em;color:#fff}
- .fclbl{font-weight:400;padding-left:14px !important;white-space:nowrap}
- .dotm{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:9px;vertical-align:0}
- .dep tr.fcanchor td{font-weight:700}
+ .fccard table{width:100%;border-collapse:collapse}
+ .fccard th{padding:8px 6px;text-align:right;border-bottom:1px solid #232a32}
+ .fccard th:first-child{text-align:left}
+ .fccard td{padding:7.5px 6px;border-bottom:1px solid #171d24;font-family:inherit;font-size:12px}
+ .fccard tr:last-child td{border-bottom:none}
+ .fccard .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+ .fccard .fclbl{font-weight:400;color:#c9d1d9;white-space:nowrap;font-family:inherit}
+ .fccard tr.fcanchor td{font-weight:700}
+ .dotm{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:8px;vertical-align:0}
+ .fpill{display:inline-block;font-size:9.5px;font-weight:700;letter-spacing:.14em;padding:3px 10px;
+   border-radius:20px;border:1px solid}
  .cell{border-left:1px solid var(--line);padding:2px 20px;min-width:0}
  .bgrid .cell:nth-child(4n+1){border-left:0;padding-left:0}
  .cell .l{color:var(--mut);font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
@@ -227,7 +235,7 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 29 Sep 2026 23:12</span>
+  <span class='kanan'>data run 29 Sep 2026 23:22</span>
 </div>
 <script>
 (function(){
