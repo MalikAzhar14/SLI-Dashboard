@@ -48,10 +48,17 @@
  .bgrid.b5{grid-template-columns:repeat(5,minmax(0,1fr))}
  .bgrid.b3{grid-template-columns:repeat(3,minmax(0,1fr))}
  .bgrid.b6{grid-template-columns:repeat(6,minmax(0,1fr))}
- .fcbar{display:flex;height:5px;border-radius:3px;overflow:hidden;margin-top:7px;max-width:130px;background:#21262d}
+ .fcbar{display:inline-flex;height:6px;border-radius:3px;overflow:hidden;width:130px;background:#21262d;
+   vertical-align:middle;margin:0 10px 1px 16px}
  .fcbar i{display:block;height:100%}
- .fcsub{font-size:9px;color:#8b949e;margin-top:4px;letter-spacing:.04em}
- .dep tr.fctop td{border-top:2px solid #30363d}
+ .fcsub{font-size:9.5px;color:#8b949e;letter-spacing:.05em}
+ .dep tr.fcgrp td{background:#161b22;border-top:2px solid #30363d;border-bottom:1px solid #21262d;
+   padding:10px 12px}
+ .dep tr.fcgrp:first-child td{border-top:none}
+ .fcnm{font-weight:800;letter-spacing:.08em;color:#fff}
+ .fclbl{font-weight:400;padding-left:14px !important;white-space:nowrap}
+ .dotm{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:9px;vertical-align:0}
+ .dep tr.fcanchor td{font-weight:700}
  .cell{border-left:1px solid var(--line);padding:2px 20px;min-width:0}
  .bgrid .cell:nth-child(4n+1){border-left:0;padding-left:0}
  .cell .l{color:var(--mut);font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
@@ -220,7 +227,7 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 29 Sep 2026 23:03</span>
+  <span class='kanan'>data run 29 Sep 2026 23:11</span>
 </div>
 <script>
 (function(){
