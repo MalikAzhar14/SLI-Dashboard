@@ -48,6 +48,10 @@
  .bgrid.b5{grid-template-columns:repeat(5,minmax(0,1fr))}
  .bgrid.b3{grid-template-columns:repeat(3,minmax(0,1fr))}
  .bgrid.b6{grid-template-columns:repeat(6,minmax(0,1fr))}
+ .fcbar{display:flex;height:5px;border-radius:3px;overflow:hidden;margin-top:7px;max-width:130px;background:#21262d}
+ .fcbar i{display:block;height:100%}
+ .fcsub{font-size:9px;color:#8b949e;margin-top:4px;letter-spacing:.04em}
+ .dep tr.fctop td{border-top:2px solid #30363d}
  .cell{border-left:1px solid var(--line);padding:2px 20px;min-width:0}
  .bgrid .cell:nth-child(4n+1){border-left:0;padding-left:0}
  .cell .l{color:var(--mut);font-size:9.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:700}
@@ -216,11 +220,11 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 29 Sep 2026 18:52</span>
+  <span class='kanan'>data run 29 Sep 2026 22:54</span>
 </div>
 <script>
 (function(){
-  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "18,213.45", "unc": "16,658.47", "tgt": "39,491.98", "prog": "46.1%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "6,470.80", "unc": "7,037.71", "tgt": "14,849.69", "prog": "43.6%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "1,752.47", "unc": "1,804.20", "tgt": "3,862.83", "prog": "45.4%"}];
+  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "18,213.45", "unc": "20,021.83", "tgt": "39,492.33", "prog": "46.1%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "6,470.80", "unc": "6,501.15", "tgt": "14,849.83", "prog": "43.6%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "1,752.47", "unc": "1,923.66", "tgt": "3,862.82", "prog": "45.4%"}];
   var peta = L.map('peta', {preferCanvas:true});
   var PANE = {all:'paneAll', fc5:'paneFC5', fc4:'paneFC4', cov:'paneCov',
               uc:'paneUC', adm:'paneAdm', pm:'panePM'};
