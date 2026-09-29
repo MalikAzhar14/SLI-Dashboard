@@ -142,11 +142,13 @@ body{display:flex;flex-direction:column}
  font-size:9.5px;letter-spacing:.2em;color:#8b949e;border-bottom:1px solid #30363d;
  padding:0 0 7px;margin-bottom:5px;cursor:default}
 .peta-legend .lg-h button{background:#21262d;border:1px solid #3d444d;color:#c9d1d9;
- font:inherit;font-size:9.5px;letter-spacing:.08em;border-radius:6px;padding:2px 8px;
- cursor:pointer;margin-left:5px}
+ font:inherit;font-size:9px;letter-spacing:.05em;border-radius:20px;padding:3px 9px;
+ cursor:pointer;margin-left:5px;white-space:nowrap}
 .peta-legend .lg-h button:hover{background:#30363d;border-color:#58a6ff}
 .peta-legend div{cursor:pointer;display:flex;align-items:center;gap:9px;padding:4px 0}
-.peta-legend [data-l]{cursor:grab;border-radius:7px;padding:4px 6px;margin:1px -6px}
+.peta-legend [data-l]{cursor:grab;border-radius:7px;padding:5px 7px;margin:1px -7px;min-height:26px}
+.peta-legend [data-l]::after{content:'807';margin-left:auto;color:#3d444d;font-size:12px}
+.peta-legend [data-l]:hover::after{color:#8b949e}
 .peta-legend [data-l]:hover{background:#ffffff0d}
 .peta-legend [data-l].seret{opacity:.35;background:#58a6ff22}
 .peta-legend [data-l]:active{cursor:grabbing}
@@ -163,17 +165,20 @@ body{display:flex;flex-direction:column}
 .peta-legend div:not(.mati) .cb{background:#16351f;border-color:#3fb950}
 .peta-legend div:not(.mati) .cb::after{content:'';position:absolute;left:4px;top:1px;
  width:3px;height:7px;border:solid #3fb950;border-width:0 2px 2px 0;transform:rotate(45deg)}
-.peta-legend i{display:inline-block;width:22px;height:3px;border-radius:2px;flex:0 0 auto}
+.peta-legend i{display:inline-block;width:24px;height:3px;border-radius:2px;flex:0 0 auto}
 .peta-legend i.dash{background:repeating-linear-gradient(90deg,#0b0d10 0 6px,#ffffff 6px 12px);
 height:4px;border:0;border-radius:2px}
-.peta-legend i.pmleg{background:none;width:auto;height:auto;font-size:13px;font-style:normal}
+.peta-legend i.pmleg{background:none;width:24px;height:auto;font-size:13px;font-style:normal;
+ text-align:center;line-height:1}
 .pm-badge{width:28px;height:28px;border-radius:50%;background:#11151c;border:2.5px solid #90a4ae;
 display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;
 box-shadow:0 1px 6px rgba(0,0,0,.65);position:relative}
 .pm-x{position:absolute;top:2px;right:-2px;font-size:11.5px;line-height:1;
 filter:drop-shadow(0 1px 2px rgba(0,0,0,.85))}
-.peta-legend .pm-sub{display:flex;flex-direction:column;gap:3px;padding:0 0 5px 22px;cursor:default}
-.peta-legend .pm-sub .r{display:flex;align-items:center;gap:7px;font-size:10.5px;color:#aab4bf}
+.peta-legend .pm-sub{display:flex;flex-direction:column;gap:4px;padding:1px 0 6px 30px;cursor:default}
+.peta-legend .pm-sub .r{display:flex;align-items:center;gap:9px;font-size:10.5px;color:#aab4bf;
+ min-height:18px}
+.peta-legend .pm-sub .pm-mini{flex:0 0 auto}
 .pm-mini{width:17px;height:17px;border-radius:50%;background:#11151c;border:1.5px solid #90a4ae;
 display:inline-flex;align-items:center;justify-content:center;font-size:9px;line-height:1;
 font-style:normal;position:relative;flex:0 0 auto}
@@ -210,11 +215,11 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
 <div class='mfoot'>
   <span>MAPS &middot; map page &mdash; <b>no auto-refresh</b>, position &amp; zoom saved per area</span>
   <span>layers load per selected area (lazy) &middot; switching back is instant</span>
-  <span class='kanan'>data run 29 Sep 2026 14:32</span>
+  <span class='kanan'>data run 29 Sep 2026 15:22</span>
 </div>
 <script>
 (function(){
-  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "18,213.45", "unc": "16,658.47", "tgt": "39,491.98", "prog": "46.1%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "6,470.80", "unc": "7,037.71", "tgt": "14,849.69", "prog": "43.6%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "1,752.47", "unc": "1,804.20", "tgt": "3,862.83", "prog": "45.4%"}];
+  var AREA = [{"kode": "jabodetabek", "nama": "JABODETABEK", "ada": true, "view": [-6.3, 106.85, 10], "net": "18,213.45", "unc": "20,021.83", "tgt": "39,491.97", "prog": "46.1%"}, {"kode": "bandung", "nama": "BANDUNG RAYA", "ada": true, "view": [-6.905, 107.61, 11], "net": "6,470.80", "unc": "7,520.28", "tgt": "14,849.68", "prog": "43.6%"}, {"kode": "surabaya", "nama": "SURABAYA", "ada": true, "view": [-7.28, 112.74, 12], "net": "1,752.47", "unc": "1,923.66", "tgt": "3,862.82", "prog": "45.4%"}];
   var peta = L.map('peta', {preferCanvas:true});
   var PANE = {all:'paneAll', fc5:'paneFC5', fc4:'paneFC4', cov:'paneCov',
               uc:'paneUC', adm:'paneAdm', pm:'panePM'};
@@ -246,18 +251,18 @@ border-radius:8px;box-shadow:0 6px 22px rgba(0,0,0,.55)}
   var legend = L.control({position:'bottomleft'});
   legend.onAdd = function(){
     var d = L.DomUtil.create('div','peta-legend');
-    d.innerHTML = "<div class='lg-h'>LAYERS<span><button id='lg-all'>all</button><button id='lg-none'>none</button></span></div>" +
-                  "<div data-l='all' draggable='true'><span class='cb'></span><i style='background:#ff5252'></i>Plan All</div>" +
-                  "<div data-l='fc4' draggable='true'><span class='cb'></span><i style='background:#39FF14'></i>Plan FC4</div>" +
-                  "<div data-l='fc5' draggable='true'><span class='cb'></span><i style='background:#B388FF'></i>Plan FC5</div>" +
-                  "<div data-l='cov' draggable='true'><span class='cb'></span><i style='background:#00e5ff'></i>Actual</div>" +
-                  "<div data-l='uc' draggable='true'><span class='cb'></span><i style='background:#ffd600'></i>Uncovered Cluster</div>" +
+    d.innerHTML = "<div class='lg-h'>LAYERS<span><button id='lg-all'>Select All</button><button id='lg-none'>Unselect All</button></span></div>" +
+                  "<div data-l='adm' draggable='true'><span class='cb'></span><i class='dash'></i>Admin Boundary</div>" +
                   "<div data-l='pm' draggable='true'><span class='cb'></span><i class='pmleg'>📍</i>Placemark</div>" +
                   "<div class='pm-sub' id='pm-sub'>" +
                     "<span class='r'><b class='pm-mini' style='border-color:#ff5252'>🏍<i class='pm-xm'>💥</i></b>Traffic Accident</span>" +
                     "<span class='r'><b class='pm-mini' style='border-color:#e040fb'>🚨</b>High-Crime Area</span>" +
                   "</div>" +
-                  "<div data-l='adm' draggable='true'><span class='cb'></span><i class='dash'></i>Admin Boundary</div>";
+                  "<div data-l='cov' draggable='true'><span class='cb'></span><i style='background:#00e5ff'></i>Actual</div>" +
+                  "<div data-l='uc' draggable='true'><span class='cb'></span><i style='background:#ffd600'></i>Uncovered Cluster</div>" +
+                  "<div data-l='all' draggable='true'><span class='cb'></span><i style='background:#ff5252'></i>Plan All</div>" +
+                  "<div data-l='fc4' draggable='true'><span class='cb'></span><i style='background:#39FF14'></i>Plan FC4</div>" +
+                  "<div data-l='fc5' draggable='true'><span class='cb'></span><i style='background:#B388FF'></i>Plan FC5</div>";
     L.DomEvent.disableClickPropagation(d);
     try {   // pulihkan urutan layer sesi ini
       var uT = JSON.parse(sessionStorage.getItem('maps_lgorder') || 'null');
